@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.misipuk.mydictionary.Config.client
 import com.misipuk.mydictionary.R
 import com.misipuk.mydictionary.model.WordPair
@@ -34,11 +32,12 @@ class WordAdapter<T>(var context:Context, val items: MutableList<T> = ArrayList(
         val textWord = view.findViewById(R.id.text_word) as TextView
         val textTrsln = view.findViewById(R.id.text_trsln) as TextView
         val button = view.findViewById(R.id.button_trsln) as Button
-        button.setOnClickListener {
-            val mapper = jacksonObjectMapper()
-            var json = client.newCall(Request.Builder().get().build()).execute().body().string()
-            var pair = mapper.readValue<WordPair>(json)
-        }
+        //button.setOnClickListener {
+           // val mapper = jacksonObjectMapper()
+           // var json = client.newCall(Request.Builder().get().build()).execute().body().string()
+           // var pair = mapper.readValue<WordPair>(json)
+       // }
+
         return view
     }
 
