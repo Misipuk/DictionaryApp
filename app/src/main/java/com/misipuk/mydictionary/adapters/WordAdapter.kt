@@ -39,6 +39,7 @@ class WordAdapter(var context:Context, val items: MutableList<WordPair> = ArrayL
            // val mapper = jacksonObjectMapper()
            // var json = client.newCall(Request.Builder().get().build()).execute().body().string()
            // var pair = mapper.readValue<WordPair>(json)
+        //lol
        // }
         return view
     }
