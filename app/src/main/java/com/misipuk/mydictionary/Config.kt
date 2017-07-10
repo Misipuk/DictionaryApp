@@ -1,6 +1,8 @@
 package com.misipuk.mydictionary
 
+import com.misipuk.mydictionary.model.WordPair
 import okhttp3.OkHttpClient
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -12,4 +14,5 @@ object Config {
             .writeTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .build()!!
+    var wordsList: MutableList<WordPair> = ArrayList()
 }
