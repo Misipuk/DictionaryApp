@@ -18,9 +18,9 @@ import java.util.*
 /**
  * Created by Maks on 07.07.2017.
  */
-class WordAdapter<T>(var context:Context, val items: MutableList<T> = ArrayList()): BaseAdapter() {
+class WordAdapter(var context:Context, val items: MutableList<WordPair> = ArrayList()): BaseAdapter() {
 
-    override fun getItem(position: Int): T = items[position]
+    override fun getItem(position: Int): WordPair = items[position]
 
     override fun getItemId(position: Int): Long=0
 
@@ -32,12 +32,14 @@ class WordAdapter<T>(var context:Context, val items: MutableList<T> = ArrayList(
         val textWord = view.findViewById(R.id.text_word) as TextView
         val textTrsln = view.findViewById(R.id.text_trsln) as TextView
         val button = view.findViewById(R.id.button_trsln) as Button
+        var wordPair = items[position]
+        textWord.setText(wordPair.word)
+        textTrsln.setText(wordPair.trsln)
         //button.setOnClickListener {
            // val mapper = jacksonObjectMapper()
            // var json = client.newCall(Request.Builder().get().build()).execute().body().string()
            // var pair = mapper.readValue<WordPair>(json)
        // }
-
         return view
     }
 
