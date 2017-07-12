@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/text_word"
+            android:id="@+id/text_trsln"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -24,7 +24,7 @@
             android:textColor="#0e0e0e"/>
 
         <TextView
-            android:id="@+id/text_trsln"
+            android:id="@+id/text_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="38dp"

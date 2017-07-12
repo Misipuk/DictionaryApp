@@ -16,11 +16,11 @@ object Config {
             .build()!!
     val wordsList: MutableList<WordPair> by lazy{
         ArrayList<WordPair>().apply {
-            this.add(WordPair("Max","Макс"))
-            this.add(WordPair("Dimka","Димка"))
-            this.add(WordPair("Egorka","Егорка"))
-            this.add(WordPair("Nik","Никитос"))
-            this.add(WordPair("Ruslan","Руся"))
+            this.add(WordPair("Макс","Max"))
+            this.add(WordPair("Димка","Dimka"))
+            this.add(WordPair("Кгорка","Egorka"))
+            this.add(WordPair("Никитос","Nik"))
+            this.add(WordPair("Руся","Ruslan"))
         }
     }
 }

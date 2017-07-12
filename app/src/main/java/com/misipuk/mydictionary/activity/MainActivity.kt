@@ -1,17 +1,26 @@
 package com.misipuk.mydictionary.activity
 
+import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
+import android.text.InputType
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import com.misipuk.mydictionary.R
 import com.misipuk.mydictionary.adapters.WordAdapter
 import com.misipuk.mydictionary.model.WordPair
 import com.misipuk.mydictionary.Config.wordsList
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
@@ -58,6 +67,28 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuIt
         when (item){
             editMenuItem ->{
                 startMode(Mode.EDIT)
+            }
+            addMenuItem ->{
+                var mBuilder = AlertDialog.Builder(this@MainActivity)
+                var mView = layoutInflater.inflate(R.layout.add_dialog,null)
+                var wordText: EditText = mView.findViewById(R.id.d_word) as EditText
+                var trslnText: EditText = mView.findViewById(R.id.d_trsln) as EditText
+                var addButton: Button = mView.findViewById(R.id.btnAdd) as Button
+                mBuilder.setView(mView);
+                var dialog: AlertDialog = mBuilder.create();
+
+                dialog.show();
+                addButton.setOnClickListener(object : View.OnClickListener {
+                    override fun onClick(view: View) {
+                        if(!wordText.getText().toString().isEmpty() && !trslnText.getText().toString().isEmpty()) {
+                            wordsList.add(WordPair(wordText.getText().toString(),trslnText.getText().toString()))
+                            var wordAdapter = WordAdapter(this@MainActivity, wordsList)
+                            listView.adapter = wordAdapter
+                            dialog.dismiss();
+                        }
+                    }
+                })
+
             }
         }
         return super.onOptionsItemSelected(item)
