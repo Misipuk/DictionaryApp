@@ -17,17 +17,18 @@ import java.util.*
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
 
     enum class Mode {
-        NORMAL, REMOVE, SEARCH, SORT
+        NORMAL, EDIT, SEARCH
     }
 
     var mode: Mode = Mode.NORMAL
 
     //val searchView: MaterialSearchView  by lazy {  findViewById(R.id.search_view) as MaterialSearchView }
     val listView: ListView by lazy { findViewById(R.id.listview_words) as ListView }
-    lateinit var removeMenuItem: MenuItem
+    lateinit var mSearchView : SearchView
+
+    lateinit var addMenuItem: MenuItem
     lateinit var editMenuItem : MenuItem
     lateinit var sortAbMenuItem: MenuItem
-    lateinit var mSearchView : SearchView
     lateinit var searchMenuItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,36 +46,57 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuIt
         searchMenuItem = menu.findItem(R.id.action_search)
         mSearchView = searchMenuItem.actionView as SearchView
         mSearchView.setOnQueryTextListener(this)
-        removeMenuItem = menu.findItem(R.id.action_remove)
+        addMenuItem = menu.findItem(R.id.action_add)
         editMenuItem = menu.findItem(R.id.action_edit)
         sortAbMenuItem = menu.findItem(R.id.action_sort)
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, this)
         startMode(Mode.NORMAL)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item){
+            editMenuItem ->{
+                startMode(Mode.EDIT)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun startMode(modeToStart: Mode) {
         when (modeToStart){
             Mode.NORMAL -> {
-                removeMenuItem.isVisible = false
+                addMenuItem.isVisible = false
                 //microMenuItem.setVisible(false)
                 sortAbMenuItem.isVisible = false
                 searchMenuItem.setVisible(true)
                 editMenuItem.isVisible = true
             }
             Mode.SEARCH ->{
-                removeMenuItem!!.isVisible = false
+                addMenuItem!!.isVisible = false
                 searchMenuItem!!.isVisible = false
+                sortAbMenuItem.isVisible = false
+                addMenuItem.isVisible = false
+            }
+            Mode.EDIT ->{
+                addMenuItem.isVisible = true
+                sortAbMenuItem.isVisible = true
+                searchMenuItem!!.isVisible = true
+                editMenuItem.isVisible = false
             }
         }
+        mode = modeToStart
     }
 
     override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+        //SEARCHVIEW ACTIVITY
         startMode(Mode.SEARCH)
         //CLOSE DRAWERLAYOUT
         return true
     }
 
     override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+        //SEARCHVIEW CLOSE
         startMode(Mode.NORMAL)
         var wordAdapter = WordAdapter(this@MainActivity, wordsList)
         listView.adapter = wordAdapter

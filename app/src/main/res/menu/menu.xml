@@ -14,9 +14,9 @@
         android:title="Edit"
         yourapp:showAsAction="always" />
     <item
-        android:id="@+id/action_remove"
-        android:icon="@drawable/icon_toolbar_remove"
-        android:title="Delete"
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_action_add"
+        android:title="Add"
         yourapp:showAsAction="always" />
     <item
         android:id="@+id/action_sort"
