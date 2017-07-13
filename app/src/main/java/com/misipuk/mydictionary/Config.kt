@@ -18,7 +18,7 @@ object Config {
         ArrayList<WordPair>().apply {
             this.add(WordPair("Макс","Max"))
             this.add(WordPair("Димка","Dimka"))
-            this.add(WordPair("Кгорка","Egorka"))
+            this.add(WordPair("Егорка","Egorka"))
             this.add(WordPair("Никитос","Nik"))
             this.add(WordPair("Руся","Ruslan"))
         }

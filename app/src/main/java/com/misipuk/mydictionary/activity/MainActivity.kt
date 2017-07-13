@@ -22,6 +22,10 @@ import com.misipuk.mydictionary.model.WordPair
 import com.misipuk.mydictionary.Config.wordsList
 import java.io.ByteArrayOutputStream
 import java.util.*
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+
+
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
 
@@ -45,9 +49,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuIt
         setContentView(R.layout.activity_main)
         val toolbar = findViewById(R.id.toolbar) as Toolbar?
         setSupportActionBar(toolbar)
-        var wordAdapter = WordAdapter(this, wordsList)
-        var listView = findViewById(R.id.listview_words) as ListView
+        var wordAdapter = WordAdapter(this, wordsList, mode)
         listView.adapter = wordAdapter
+       // listView.onItemClickListener = OnItemClickListener { parent, view, position, id ->
+       //     val o = listView.getItemAtPosition(position)
+       //     //val str = o as prestationEco//As you are using Default String Adapter
+       //     Toast.makeText(baseContext, "Lol", Toast.LENGTH_LONG).show()
+       // }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -82,7 +90,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuIt
                     override fun onClick(view: View) {
                         if(!wordText.getText().toString().isEmpty() && !trslnText.getText().toString().isEmpty()) {
                             wordsList.add(WordPair(wordText.getText().toString(),trslnText.getText().toString()))
-                            var wordAdapter = WordAdapter(this@MainActivity, wordsList)
+                            var wordAdapter = WordAdapter(this@MainActivity, wordsList, mode)
                             listView.adapter = wordAdapter
                             dialog.dismiss();
                         }
@@ -117,6 +125,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuIt
             }
         }
         mode = modeToStart
+        var wordAdapter = WordAdapter(this@MainActivity, wordsList, mode)
+        listView.adapter = wordAdapter
     }
 
     override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
@@ -129,8 +139,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuIt
     override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
         //SEARCHVIEW CLOSE
         startMode(Mode.NORMAL)
-        var wordAdapter = WordAdapter(this@MainActivity, wordsList)
-        listView.adapter = wordAdapter
+        //var wordAdapter = WordAdapter(this@MainActivity, wordsList, mode)
         return true
     }
 
@@ -158,12 +167,12 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, MenuIt
                     lstFound.add(item)
             }
 
-            var wordAdapter = WordAdapter(this@MainActivity, lstFound)
+            var wordAdapter = WordAdapter(this@MainActivity, lstFound, mode)
             listView.adapter = wordAdapter
         } else {
             //if search text is null
             //return default
-            var wordAdapter = WordAdapter(this@MainActivity, wordsList)
+            var wordAdapter = WordAdapter(this@MainActivity, wordsList, mode)
             listView.adapter = wordAdapter
         }
         return false
